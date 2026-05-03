@@ -1,0 +1,428 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01A000000000000000000001 /* ClipboardHistoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000001 /* ClipboardHistoryApp.swift */; };
+		01A000000000000000000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000002 /* AppDelegate.swift */; };
+		01A000000000000000000003 /* LauncherPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000003 /* LauncherPanel.swift */; };
+		01A000000000000000000004 /* ClipboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000004 /* ClipboardModels.swift */; };
+		01A000000000000000000005 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000005 /* AppSettings.swift */; };
+		01A000000000000000000006 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000006 /* AppState.swift */; };
+		01A000000000000000000007 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000007 /* StorageService.swift */; };
+		01A000000000000000000008 /* RetentionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000008 /* RetentionService.swift */; };
+		01A000000000000000000009 /* ClipboardMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000009 /* ClipboardMonitor.swift */; };
+		01A00000000000000000000A /* PasteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B00000000000000000000A /* PasteService.swift */; };
+		01A00000000000000000000B /* HotKeyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B00000000000000000000B /* HotKeyService.swift */; };
+		01A00000000000000000000C /* LauncherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B00000000000000000000C /* LauncherView.swift */; };
+		01A00000000000000000000D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B00000000000000000000D /* SettingsView.swift */; };
+		01A00000000000000000000E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B00000000000000000000F /* libsqlite3.tbd */; };
+		01A00000000000000000000F /* ShortcutFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000011 /* ShortcutFormatter.swift */; };
+		01A000000000000000000010 /* LoginItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000012 /* LoginItemService.swift */; };
+		01A000000000000000000011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000013 /* Assets.xcassets */; };
+		01A000000000000000000012 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000014 /* SettingsWindowController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		01B000000000000000000001 /* ClipboardHistoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardHistoryApp.swift; sourceTree = "<group>"; };
+		01B000000000000000000002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		01B000000000000000000003 /* LauncherPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherPanel.swift; sourceTree = "<group>"; };
+		01B000000000000000000004 /* ClipboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardModels.swift; sourceTree = "<group>"; };
+		01B000000000000000000005 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		01B000000000000000000006 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		01B000000000000000000007 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		01B000000000000000000008 /* RetentionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetentionService.swift; sourceTree = "<group>"; };
+		01B000000000000000000009 /* ClipboardMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardMonitor.swift; sourceTree = "<group>"; };
+		01B00000000000000000000A /* PasteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteService.swift; sourceTree = "<group>"; };
+		01B00000000000000000000B /* HotKeyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeyService.swift; sourceTree = "<group>"; };
+		01B00000000000000000000C /* LauncherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherView.swift; sourceTree = "<group>"; };
+		01B00000000000000000000D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		01B00000000000000000000E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01B00000000000000000000F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		01B000000000000000000010 /* ClipLy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipLy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		01B000000000000000000011 /* ShortcutFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutFormatter.swift; sourceTree = "<group>"; };
+		01B000000000000000000012 /* LoginItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemService.swift; sourceTree = "<group>"; };
+		01B000000000000000000013 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		01B000000000000000000014 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		01C000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01A00000000000000000000E /* libsqlite3.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		01D000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				01D000000000000000000002 /* ClipboardHistory */,
+				01D000000000000000000008 /* Frameworks */,
+				01D000000000000000000009 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		01D000000000000000000002 /* ClipboardHistory */ = {
+			isa = PBXGroup;
+			children = (
+				01D000000000000000000003 /* App */,
+				01D000000000000000000004 /* Models */,
+				01D000000000000000000005 /* Services */,
+				01D000000000000000000006 /* Views */,
+				01D000000000000000000007 /* Resources */,
+			);
+			path = ClipboardHistory;
+			sourceTree = "<group>";
+		};
+		01D000000000000000000003 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				01B000000000000000000001 /* ClipboardHistoryApp.swift */,
+				01B000000000000000000002 /* AppDelegate.swift */,
+				01B000000000000000000003 /* LauncherPanel.swift */,
+				01B000000000000000000014 /* SettingsWindowController.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		01D000000000000000000004 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				01B000000000000000000004 /* ClipboardModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		01D000000000000000000005 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				01B000000000000000000005 /* AppSettings.swift */,
+				01B000000000000000000006 /* AppState.swift */,
+				01B000000000000000000007 /* StorageService.swift */,
+				01B000000000000000000008 /* RetentionService.swift */,
+				01B000000000000000000009 /* ClipboardMonitor.swift */,
+				01B00000000000000000000A /* PasteService.swift */,
+				01B00000000000000000000B /* HotKeyService.swift */,
+				01B000000000000000000011 /* ShortcutFormatter.swift */,
+				01B000000000000000000012 /* LoginItemService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		01D000000000000000000006 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				01B00000000000000000000C /* LauncherView.swift */,
+				01B00000000000000000000D /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		01D000000000000000000007 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				01B00000000000000000000E /* Info.plist */,
+				01B000000000000000000013 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		01D000000000000000000008 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				01B00000000000000000000F /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		01D000000000000000000009 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				01B000000000000000000010 /* ClipLy.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		01E000000000000000000001 /* ClipboardHistory */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01F000000000000000000002 /* Build configuration list for PBXNativeTarget "ClipboardHistory" */;
+			buildPhases = (
+				01C000000000000000000002 /* Sources */,
+				01C000000000000000000001 /* Frameworks */,
+				01C000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClipboardHistory;
+			productName = ClipboardHistory;
+			productReference = 01B000000000000000000010 /* ClipLy.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		01E000000000000000000002 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2630;
+				LastUpgradeCheck = 2630;
+				TargetAttributes = {
+					01E000000000000000000001 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+				};
+			};
+			buildConfigurationList = 01F000000000000000000001 /* Build configuration list for PBXProject "ClipboardHistory" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 01D000000000000000000001;
+			productRefGroup = 01D000000000000000000009 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				01E000000000000000000001 /* ClipboardHistory */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		01C000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01A000000000000000000011 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		01C000000000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01A000000000000000000001 /* ClipboardHistoryApp.swift in Sources */,
+				01A000000000000000000002 /* AppDelegate.swift in Sources */,
+				01A000000000000000000003 /* LauncherPanel.swift in Sources */,
+				01A000000000000000000012 /* SettingsWindowController.swift in Sources */,
+				01A000000000000000000004 /* ClipboardModels.swift in Sources */,
+				01A000000000000000000005 /* AppSettings.swift in Sources */,
+				01A000000000000000000006 /* AppState.swift in Sources */,
+				01A000000000000000000007 /* StorageService.swift in Sources */,
+				01A000000000000000000008 /* RetentionService.swift in Sources */,
+				01A000000000000000000009 /* ClipboardMonitor.swift in Sources */,
+				01A00000000000000000000A /* PasteService.swift in Sources */,
+				01A00000000000000000000B /* HotKeyService.swift in Sources */,
+				01A00000000000000000000F /* ShortcutFormatter.swift in Sources */,
+				01A000000000000000000010 /* LoginItemService.swift in Sources */,
+				01A00000000000000000000C /* LauncherView.swift in Sources */,
+				01A00000000000000000000D /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		01F000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		01F000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		01F000000000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ClipboardHistory/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.cliply.ClipLy;
+				PRODUCT_NAME = ClipLy;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		01F000000000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ClipboardHistory/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.cliply.ClipLy;
+				PRODUCT_NAME = ClipLy;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		01F000000000000000000001 /* Build configuration list for PBXProject "ClipboardHistory" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01F000000000000000000003 /* Debug */,
+				01F000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		01F000000000000000000002 /* Build configuration list for PBXNativeTarget "ClipboardHistory" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01F000000000000000000005 /* Debug */,
+				01F000000000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 01E000000000000000000002 /* Project object */;
+}
