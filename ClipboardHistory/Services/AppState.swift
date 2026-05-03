@@ -74,6 +74,16 @@ final class AppState {
         refreshRecords()
     }
 
+    func deleteAllDataAndQuit() {
+        try? LoginItemService.setEnabled(false)
+        if let bundleIdentifier = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleIdentifier)
+        }
+        UserDefaults.standard.synchronize()
+        storage.deleteApplicationSupportData()
+        NSApp.terminate(nil)
+    }
+
     func updateShortcut(keyCode: UInt32, modifiers: UInt32) {
         settings.shortcutKeyCode = keyCode
         settings.shortcutModifiers = modifiers

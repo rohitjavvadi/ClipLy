@@ -53,6 +53,33 @@ brew upgrade --cask cliply
 
 If you installed with a DMG, download the latest `ClipLy.dmg`, quit ClipLy, then drag the new `ClipLy.app` into Applications and choose Replace.
 
+## Uninstall
+
+If you installed with Homebrew and want to remove the app only:
+
+```bash
+brew uninstall --cask cliply
+```
+
+If you installed with Homebrew and want to remove the app plus stored ClipLy data:
+
+```bash
+brew uninstall --cask --zap cliply
+```
+
+If you installed manually, drag `ClipLy.app` from Applications to Trash. To also remove stored data manually:
+
+```bash
+rm -rf ~/Library/Application\ Support/ClipLy
+defaults delete app.cliply.ClipLy 2>/dev/null || true
+```
+
+You can also remove app data from inside ClipLy:
+
+1. Open ClipLy Settings
+2. Click `Delete All ClipLy Data…`
+3. Confirm `Delete and Quit`
+
 ## Permissions
 
 ClipLy may ask for Accessibility permission. This is used to paste the selected clipboard history item into the app you are currently using.

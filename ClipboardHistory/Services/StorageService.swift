@@ -136,6 +136,16 @@ final class StorageService {
         }
     }
 
+    func deleteApplicationSupportData() {
+        queue.sync {
+            if let db {
+                sqlite3_close(db)
+                self.db = nil
+            }
+            try? FileManager.default.removeItem(at: appSupportURL)
+        }
+    }
+
     func storeImage(_ image: NSImage, id: UUID) -> (imagePath: String?, thumbnailPath: String?, byteCount: Int64) {
         guard let tiff = image.tiffRepresentation,
               let bitmap = NSBitmapImageRep(data: tiff),

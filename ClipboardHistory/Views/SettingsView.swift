@@ -5,6 +5,7 @@ struct SettingsView: View {
     @Bindable var appState: AppState
     @State private var isRecordingShortcut = false
     @State private var shortcutMonitor: Any?
+    @State private var isShowingDeleteAllDataConfirmation = false
 
     var body: some View {
         Form {
@@ -30,9 +31,20 @@ struct SettingsView: View {
             Button("Clear History", role: .destructive) {
                 appState.clearHistory()
             }
+            Button("Delete All ClipLy Data…", role: .destructive) {
+                isShowingDeleteAllDataConfirmation = true
+            }
         }
         .padding(24)
         .frame(width: 420)
+        .alert("Delete all ClipLy data?", isPresented: $isShowingDeleteAllDataConfirmation) {
+            Button("Cancel", role: .cancel) {}
+            Button("Delete and Quit", role: .destructive) {
+                appState.deleteAllDataAndQuit()
+            }
+        } message: {
+            Text("This removes clipboard history, stored images, thumbnails, settings, and launch-at-login registration. ClipLy will quit after cleanup.")
+        }
         .onAppear {
             appState.refreshLaunchAtLoginState()
         }
