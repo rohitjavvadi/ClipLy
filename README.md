@@ -12,12 +12,25 @@ ClipLy is a lightweight macOS clipboard history app for text, images, and files.
 - Spotlight-style launcher
 - Keyboard navigation with arrows and Enter
 - Escape to close the launcher
+- Multi-select native sharing for saved images and file clips
 - Configurable global keyboard shortcut
 - Configurable retention from 1 day to 1 month
 - Launch at login option
 - Optional Dock icon
 - Local SQLite-backed storage
 - No analytics and no network service dependency
+
+## Sharing Images and Files
+
+ClipLy can share multiple image or file history items with the native macOS share picker.
+
+1. Open ClipLy
+2. Switch to `Images` or `Files`
+3. Click `Select`
+4. Choose one or more items
+5. Click `Share`
+
+In `Images`, ClipLy shares the stored image files from its local history. In `Files`, ClipLy shares the original file paths, so files that have been moved or deleted may no longer be available to share.
 
 ## Install
 
