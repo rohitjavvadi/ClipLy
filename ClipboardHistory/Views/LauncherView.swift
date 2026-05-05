@@ -4,6 +4,7 @@ import SwiftUI
 struct LauncherView: View {
     @Bindable var appState: AppState
     @FocusState private var searchFocused: Bool
+    @State private var shareAnchorView: NSView?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -20,8 +21,12 @@ struct LauncherView: View {
         .onChange(of: appState.query) {
             appState.refreshRecords()
         }
-        .onChange(of: appState.selectedFilter) {
-            appState.refreshRecords()
+        .alert("Share unavailable", isPresented: shareErrorBinding) {
+            Button("OK") {
+                appState.shareErrorMessage = nil
+            }
+        } message: {
+            Text(appState.shareErrorMessage ?? "")
         }
     }
 
@@ -41,17 +46,63 @@ struct LauncherView: View {
 
             HStack(spacing: 8) {
                 ForEach(HistoryFilter.allCases) { filter in
-                    FilterButton(filter: filter, selectedFilter: $appState.selectedFilter)
+                    FilterButton(
+                        filter: filter,
+                        isSelected: appState.selectedFilter == filter
+                    ) {
+                        appState.selectFilter(filter)
+                    }
                 }
                 Spacer()
-                Text("\(appState.records.count)")
-                    .font(.system(size: 13, weight: .medium))
-                    .foregroundStyle(.secondary)
-                    .monospacedDigit()
+
+                if appState.isMultiSelectMode {
+                    Text("\(appState.multiSelectedCount) selected")
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundStyle(.secondary)
+                        .monospacedDigit()
+                } else {
+                    Text("\(appState.records.count)")
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundStyle(.secondary)
+                        .monospacedDigit()
+                }
+
+                if appState.canShareMultiSelection {
+                    LauncherActionButton(title: "Share", systemImage: "square.and.arrow.up", isProminent: true) {
+                        appState.shareSelectedItems(relativeTo: shareAnchorView ?? NSApp.keyWindow?.contentView)
+                    }
+                    .background {
+                        ShareAnchorReader { view in
+                            shareAnchorView = view
+                        }
+                    }
+                }
+
+                if appState.canUseMultiSelect {
+                    LauncherActionButton(
+                        title: appState.isMultiSelectMode ? "Done" : "Select",
+                        systemImage: appState.isMultiSelectMode ? "checkmark" : "checkmark.circle",
+                        isProminent: appState.isMultiSelectMode
+                    ) {
+                        appState.toggleMultiSelectMode()
+                    }
+                }
             }
+            .font(.system(size: 13, weight: .medium))
             .padding(.horizontal, 18)
             .padding(.bottom, 14)
         }
+    }
+
+    private var shareErrorBinding: Binding<Bool> {
+        Binding(
+            get: { appState.shareErrorMessage != nil },
+            set: { isPresented in
+                if !isPresented {
+                    appState.shareErrorMessage = nil
+                }
+            }
+        )
     }
 
     private var content: some View {
@@ -62,14 +113,21 @@ struct LauncherView: View {
                         ForEach(appState.records) { record in
                             ClipRowView(
                                 record: record,
-                                isSelected: record.id == appState.selectedRecordID
+                                isSelected: record.id == appState.selectedRecordID,
+                                isMultiSelectMode: appState.isMultiSelectMode,
+                                isMultiSelected: appState.multiSelectedRecordIDs.contains(record.id)
                             )
                             .id(record.id)
                             .contentShape(Rectangle())
                             .onTapGesture {
-                                appState.selectedRecordID = record.id
+                                if appState.isMultiSelectMode {
+                                    appState.toggleMultiSelection(for: record)
+                                } else {
+                                    appState.selectedRecordID = record.id
+                                }
                             }
                             .onTapGesture(count: 2) {
+                                guard !appState.isMultiSelectMode else { return }
                                 appState.selectedRecordID = record.id
                                 appState.restoreSelectedAndPaste()
                             }
@@ -106,19 +164,18 @@ struct LauncherView: View {
 
 private struct FilterButton: View {
     let filter: HistoryFilter
-    @Binding var selectedFilter: HistoryFilter
+    let isSelected: Bool
+    let action: () -> Void
 
     var body: some View {
-        Button {
-            selectedFilter = filter
-        } label: {
+        Button(action: action) {
             Text(filter.title)
                 .font(.system(size: 13, weight: .semibold))
                 .padding(.horizontal, 12)
                 .frame(height: 28)
         }
         .buttonStyle(.plain)
-        .foregroundStyle(selectedFilter == filter ? .primary : .secondary)
+        .foregroundStyle(isSelected ? .primary : .secondary)
         .background(background)
     }
 
@@ -126,11 +183,61 @@ private struct FilterButton: View {
     private var background: some View {
         if #available(macOS 26.0, *) {
             Capsule()
-                .fill(selectedFilter == filter ? Color.white.opacity(0.16) : Color.clear)
-                .glassEffect(selectedFilter == filter ? .regular.interactive() : .regular, in: .capsule)
+                .fill(isSelected ? Color.white.opacity(0.16) : Color.clear)
+                .glassEffect(isSelected ? .regular.interactive() : .regular, in: .capsule)
         } else {
             Capsule()
-                .fill(selectedFilter == filter ? Color.primary.opacity(0.12) : Color.clear)
+                .fill(isSelected ? Color.primary.opacity(0.12) : Color.clear)
+        }
+    }
+}
+
+private struct LauncherActionButton: View {
+    let title: String
+    let systemImage: String
+    let isProminent: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Label(title, systemImage: systemImage)
+                .labelStyle(.titleAndIcon)
+                .font(.system(size: 13, weight: .semibold))
+                .padding(.horizontal, 10)
+                .frame(height: 28)
+        }
+        .buttonStyle(.plain)
+        .foregroundStyle(isProminent ? .primary : .secondary)
+        .background(background)
+    }
+
+    @ViewBuilder
+    private var background: some View {
+        if #available(macOS 26.0, *) {
+            Capsule()
+                .fill(isProminent ? Color.white.opacity(0.16) : Color.primary.opacity(0.06))
+                .glassEffect(isProminent ? .regular.interactive() : .regular, in: .capsule)
+        } else {
+            Capsule()
+                .fill(isProminent ? Color.accentColor.opacity(0.18) : Color.primary.opacity(0.08))
+        }
+    }
+}
+
+private struct ShareAnchorReader: NSViewRepresentable {
+    let onResolve: (NSView) -> Void
+
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        DispatchQueue.main.async {
+            onResolve(view)
+        }
+        return view
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {
+        DispatchQueue.main.async {
+            onResolve(nsView)
         }
     }
 }
@@ -138,6 +245,8 @@ private struct FilterButton: View {
 private struct ClipRowView: View {
     let record: ClipboardRecord
     let isSelected: Bool
+    let isMultiSelectMode: Bool
+    let isMultiSelected: Bool
 
     var body: some View {
         HStack(spacing: 12) {
@@ -152,6 +261,12 @@ private struct ClipRowView: View {
                     .lineLimit(1)
             }
             Spacer(minLength: 8)
+            if isMultiSelectMode {
+                Image(systemName: isMultiSelected ? "checkmark.circle.fill" : "circle")
+                    .font(.system(size: 19, weight: .semibold))
+                    .foregroundStyle(isMultiSelected ? Color.accentColor : Color.secondary)
+                    .frame(width: 24, height: 24)
+            }
         }
         .padding(.horizontal, 12)
         .frame(height: 64)

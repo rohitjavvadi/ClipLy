@@ -16,6 +16,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         launcher = LauncherWindowController(appState: appState) { [weak self] in
             self?.appState.isLauncherVisible = false
+            self?.appState.exitMultiSelectMode()
         }
         settingsWindow = SettingsWindowController(appState: appState)
         monitor = ClipboardMonitor(storage: appState.storage, settings: appState.settings) { [weak self] in

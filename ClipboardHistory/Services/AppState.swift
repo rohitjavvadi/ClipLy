@@ -12,10 +12,14 @@ final class AppState {
     var isLauncherVisible = false
     var launchAtLoginEnabled = false
     var launchAtLoginError: String?
+    var isMultiSelectMode = false
+    var multiSelectedRecordIDs: Set<UUID> = []
+    var shareErrorMessage: String?
 
     var settings = AppSettings()
     let storage: StorageService
     let pasteService: PasteService
+    let shareService: ShareService
 
     var onShortcutChanged: ((UInt32, UInt32) -> Void)?
     var onDockIconPreferenceChanged: ((Bool) -> Void)?
@@ -25,6 +29,7 @@ final class AppState {
     init() {
         storage = StorageService()
         pasteService = PasteService()
+        shareService = ShareService()
         retentionService = RetentionService(storage: storage)
     }
 
@@ -38,6 +43,10 @@ final class AppState {
         records = storage.search(query: query, filter: selectedFilter, limit: 250)
         if selectedRecordID == nil || !records.contains(where: { $0.id == selectedRecordID }) {
             selectedRecordID = records.first?.id
+        }
+        pruneMultiSelection()
+        if !canUseMultiSelect {
+            exitMultiSelectMode()
         }
     }
 
@@ -55,7 +64,13 @@ final class AppState {
         let filters = HistoryFilter.allCases
         guard let currentIndex = filters.firstIndex(of: selectedFilter) else { return }
         let nextIndex = min(max(currentIndex + delta, 0), filters.count - 1)
-        selectedFilter = filters[nextIndex]
+        selectFilter(filters[nextIndex])
+    }
+
+    func selectFilter(_ filter: HistoryFilter) {
+        guard filter != selectedFilter else { return }
+        exitMultiSelectMode()
+        selectedFilter = filter
         refreshRecords()
     }
 
@@ -65,13 +80,92 @@ final class AppState {
     }
 
     func restoreSelectedAndPaste() {
+        guard !isMultiSelectMode else { return }
         guard let record = selectedRecord() else { return }
         pasteService.restoreAndPaste(record)
     }
 
     func clearHistory() {
+        exitMultiSelectMode()
         storage.clearAll()
         refreshRecords()
+    }
+
+    var canUseMultiSelect: Bool {
+        selectedFilter == .images || selectedFilter == .files
+    }
+
+    var multiSelectedCount: Int {
+        records.filter { multiSelectedRecordIDs.contains($0.id) }.count
+    }
+
+    var canShareMultiSelection: Bool {
+        isMultiSelectMode && multiSelectedCount > 0
+    }
+
+    func toggleMultiSelectMode() {
+        if isMultiSelectMode {
+            exitMultiSelectMode()
+        } else {
+            enterMultiSelectMode()
+        }
+    }
+
+    func enterMultiSelectMode() {
+        guard canUseMultiSelect else { return }
+        isMultiSelectMode = true
+        shareErrorMessage = nil
+        pruneMultiSelection()
+    }
+
+    func exitMultiSelectMode() {
+        isMultiSelectMode = false
+        multiSelectedRecordIDs.removeAll()
+        shareErrorMessage = nil
+    }
+
+    func toggleMultiSelection(for record: ClipboardRecord) {
+        guard isMultiSelectMode && canUseMultiSelect else { return }
+        selectedRecordID = record.id
+        shareErrorMessage = nil
+        if multiSelectedRecordIDs.contains(record.id) {
+            multiSelectedRecordIDs.remove(record.id)
+        } else {
+            multiSelectedRecordIDs.insert(record.id)
+        }
+    }
+
+    func toggleSelectedRecordForSharing() {
+        guard let record = selectedRecord() else { return }
+        toggleMultiSelection(for: record)
+    }
+
+    func handleEscapeInLauncher() -> Bool {
+        guard isMultiSelectMode else { return false }
+        exitMultiSelectMode()
+        return true
+    }
+
+    func shareSelectedItems(relativeTo view: NSView?) {
+        guard isMultiSelectMode && canUseMultiSelect else { return }
+        pruneMultiSelection()
+        guard multiSelectedCount > 0 else { return }
+
+        let selectedRecords = records.filter { multiSelectedRecordIDs.contains($0.id) }
+        let urls = shareService.shareableURLs(for: selectedRecords, filter: selectedFilter)
+        guard !urls.isEmpty else {
+            multiSelectedRecordIDs.removeAll()
+            shareErrorMessage = "Selected items are no longer available on disk."
+            return
+        }
+        guard let view else { return }
+        shareErrorMessage = nil
+        shareService.showSharePicker(with: urls, relativeTo: view)
+    }
+
+    private func pruneMultiSelection() {
+        let visibleIDs = Set(records.map(\.id))
+        multiSelectedRecordIDs = multiSelectedRecordIDs.intersection(visibleIDs)
     }
 
     func deleteAllDataAndQuit() {

@@ -25,6 +25,7 @@
 		01A000000000000000000010 /* LoginItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000012 /* LoginItemService.swift */; };
 		01A000000000000000000011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000013 /* Assets.xcassets */; };
 		01A000000000000000000012 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000014 /* SettingsWindowController.swift */; };
+		01A000000000000000000013 /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B000000000000000000015 /* ShareService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		01B000000000000000000012 /* LoginItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemService.swift; sourceTree = "<group>"; };
 		01B000000000000000000013 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01B000000000000000000014 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
+		01B000000000000000000015 /* ShareService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				01B00000000000000000000B /* HotKeyService.swift */,
 				01B000000000000000000011 /* ShortcutFormatter.swift */,
 				01B000000000000000000012 /* LoginItemService.swift */,
+				01B000000000000000000015 /* ShareService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				01A00000000000000000000B /* HotKeyService.swift in Sources */,
 				01A00000000000000000000F /* ShortcutFormatter.swift in Sources */,
 				01A000000000000000000010 /* LoginItemService.swift in Sources */,
+				01A000000000000000000013 /* ShareService.swift in Sources */,
 				01A00000000000000000000C /* LauncherView.swift in Sources */,
 				01A00000000000000000000D /* SettingsView.swift in Sources */,
 			);

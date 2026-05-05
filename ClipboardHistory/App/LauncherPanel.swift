@@ -5,6 +5,7 @@ final class LauncherPanel: NSPanel {
     var onMoveSelection: ((Int) -> Void)?
     var onMoveFilter: ((Int) -> Void)?
     var onCommit: (() -> Void)?
+    var onToggleMultiSelection: (() -> Bool)?
     var onClosePanel: (() -> Void)?
 
     init(contentRect: NSRect) {
@@ -40,6 +41,10 @@ final class LauncherPanel: NSPanel {
             onMoveFilter?(1)
         case 36, 76:
             onCommit?()
+        case 49:
+            if onToggleMultiSelection?() != true {
+                super.keyDown(with: event)
+            }
         case 53:
             onClosePanel?()
         default:
@@ -67,10 +72,21 @@ final class LauncherWindowController {
         panel.onMoveFilter = { [weak appState] delta in
             appState?.moveFilter(delta)
         }
-        panel.onCommit = { [weak appState] in
-            appState?.restoreSelectedAndPaste()
+        panel.onCommit = { [weak self, weak appState] in
+            guard let appState else { return }
+            if appState.isMultiSelectMode {
+                appState.shareSelectedItems(relativeTo: self?.panel.contentView)
+            } else {
+                appState.restoreSelectedAndPaste()
+            }
         }
-        panel.onClosePanel = { [weak self] in
+        panel.onToggleMultiSelection = { [weak appState] in
+            guard let appState, appState.isMultiSelectMode else { return false }
+            appState.toggleSelectedRecordForSharing()
+            return true
+        }
+        panel.onClosePanel = { [weak self, weak appState] in
+            if appState?.handleEscapeInLauncher() == true { return }
             self?.hide()
         }
     }
@@ -107,7 +123,7 @@ final class LauncherWindowController {
             guard let self, event.window === self.panel else { return event }
             switch event.keyCode {
             case 53:
-                self.hide()
+                self.panel.onClosePanel?()
                 return nil
             case 123:
                 self.panel.onMoveFilter?(-1)
@@ -124,6 +140,11 @@ final class LauncherWindowController {
             case 36, 76:
                 self.panel.onCommit?()
                 return nil
+            case 49:
+                if self.panel.onToggleMultiSelection?() == true {
+                    return nil
+                }
+                return event
             default:
                 return event
             }
