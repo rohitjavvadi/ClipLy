@@ -12,6 +12,14 @@ final class PasteService {
         previousApplication = NSWorkspace.shared.frontmostApplication
     }
 
+    func copyStringToPasteboard(_ string: String) {
+        guard !string.isEmpty else { return }
+        onWillWritePasteboard?()
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(string, forType: .string)
+    }
+
     func restoreAndPaste(_ record: ClipboardRecord) {
         onWillWritePasteboard?()
         let pasteboard = NSPasteboard.general

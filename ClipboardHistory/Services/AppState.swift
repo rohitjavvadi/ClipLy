@@ -50,6 +50,14 @@ final class AppState {
         }
     }
 
+    func prepareForLauncherOpen() {
+        query = ""
+        selectedRecordID = nil
+        shareErrorMessage = nil
+        exitMultiSelectMode()
+        refreshRecords()
+    }
+
     func moveSelection(_ delta: Int) {
         guard !records.isEmpty else {
             selectedRecordID = nil
@@ -161,6 +169,32 @@ final class AppState {
         guard let view else { return }
         shareErrorMessage = nil
         shareService.showSharePicker(with: urls, relativeTo: view)
+    }
+
+    func copyablePathText(for record: ClipboardRecord) -> String? {
+        let paths: [String]
+        switch selectedFilter {
+        case .images:
+            paths = record.imagePath.map { [$0] } ?? []
+        case .files:
+            paths = record.filePaths
+        case .all, .text:
+            paths = []
+        }
+
+        let existingPaths = paths.filter { FileManager.default.fileExists(atPath: $0) }
+        guard !existingPaths.isEmpty else { return nil }
+        return existingPaths.joined(separator: "\n")
+    }
+
+    func copyPathTitle(for record: ClipboardRecord) -> String {
+        guard let pathText = copyablePathText(for: record) else { return "Copy Path" }
+        return pathText.contains("\n") ? "Copy Paths" : "Copy Path"
+    }
+
+    func copyPath(for record: ClipboardRecord) {
+        guard let pathText = copyablePathText(for: record) else { return }
+        pasteService.copyStringToPasteboard(pathText)
     }
 
     private func pruneMultiSelection() {

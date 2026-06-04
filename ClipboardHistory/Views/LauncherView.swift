@@ -131,6 +131,15 @@ struct LauncherView: View {
                                 appState.selectedRecordID = record.id
                                 appState.restoreSelectedAndPaste()
                             }
+                            .contextMenu {
+                                if appState.copyablePathText(for: record) != nil {
+                                    Button {
+                                        appState.copyPath(for: record)
+                                    } label: {
+                                        Label(appState.copyPathTitle(for: record), systemImage: "doc.on.doc")
+                                    }
+                                }
+                            }
                         }
                     }
                     .padding(10)

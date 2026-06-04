@@ -133,8 +133,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func showLauncher() {
         appState.pasteService.rememberFrontmostApplication()
+        appState.prepareForLauncherOpen()
         appState.isLauncherVisible = true
-        appState.refreshRecords()
         launcher?.show()
     }
 
