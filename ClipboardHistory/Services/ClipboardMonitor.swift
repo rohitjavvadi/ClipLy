@@ -62,10 +62,9 @@ final class ClipboardMonitor {
             forClasses: [NSURL.self],
             options: [.urlReadingFileURLsOnly: true]
         ) as? [URL] ?? []
-        let text = pasteboard.string(forType: .string)
+        let cleanText = bestTextRepresentation()
         let image = NSImage(pasteboard: pasteboard)
 
-        let cleanText = text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == true ? nil : text
         let filePaths = fileURLs.map(\.path)
         let fileNames = fileURLs.map(\.lastPathComponent)
 
@@ -114,5 +113,65 @@ final class ClipboardMonitor {
             byteCount: byteCount,
             hash: hash
         )
+    }
+
+    private func bestTextRepresentation() -> String? {
+        let providers: [() -> String?] = [
+            { self.pasteboard.string(forType: .string) },
+            { self.pasteboard.string(forType: .URL) },
+            { self.pasteboard.string(forType: .init("org.chromium.source-url")) },
+            { self.attributedText(for: .rtf) },
+            { self.attributedText(for: .rtfd) },
+            { self.htmlText() }
+        ]
+
+        for provider in providers {
+            if let text = cleanedText(provider()) {
+                return text
+            }
+        }
+        return nil
+    }
+
+    private func attributedText(for type: NSPasteboard.PasteboardType) -> String? {
+        guard let data = pasteboard.data(forType: type) else { return nil }
+        let documentType: NSAttributedString.DocumentType = type == .rtfd ? .rtfd : .rtf
+        let attributed = try? NSAttributedString(
+            data: data,
+            options: [.documentType: documentType],
+            documentAttributes: nil
+        )
+        return attributed?.string
+    }
+
+    private func htmlText() -> String? {
+        guard let html = pasteboard.string(forType: .html),
+              let data = html.data(using: .utf8) else {
+            return nil
+        }
+
+        if let attributed = try? NSAttributedString(
+            data: data,
+            options: [
+                .documentType: NSAttributedString.DocumentType.html,
+                .characterEncoding: String.Encoding.utf8.rawValue
+            ],
+            documentAttributes: nil
+        ) {
+            return attributed.string
+        }
+
+        return html
+            .replacingOccurrences(of: "<br\\s*/?>", with: "\n", options: .regularExpression)
+            .replacingOccurrences(of: "</p>", with: "\n", options: .caseInsensitive)
+            .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
+    }
+
+    private func cleanedText(_ text: String?) -> String? {
+        guard let text else { return nil }
+        let cleaned = text
+            .replacingOccurrences(of: "\u{fffc}", with: "")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        return cleaned.isEmpty ? nil : cleaned
     }
 }

@@ -39,9 +39,11 @@ final class StorageService {
     func insert(_ captured: CapturedClipboardItem) {
         queue.async {
             let sql = """
-            INSERT OR IGNORE INTO clips
+            INSERT INTO clips
             (id, kind, created_at, text, image_path, thumbnail_path, file_paths, file_names, byte_count, hash)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(hash) DO UPDATE SET
+                created_at = excluded.created_at;
             """
             var statement: OpaquePointer?
             guard sqlite3_prepare_v2(self.db, sql, -1, &statement, nil) == SQLITE_OK else { return }

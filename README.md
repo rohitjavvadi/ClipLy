@@ -14,6 +14,7 @@ ClipLy is a lightweight macOS clipboard history app for text, images, and files.
 - Escape to close the launcher
 - Multi-select native sharing for saved images and file clips
 - Right-click path copying for saved images and file clips
+- Browser-friendly capture for copied page text, links, HTML, and rich text fallbacks
 - Configurable global keyboard shortcut
 - Configurable retention from 1 day to 1 month
 - Launch at login option
