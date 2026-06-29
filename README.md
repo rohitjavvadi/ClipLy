@@ -141,6 +141,10 @@ The Homebrew tap lives here:
 
 https://github.com/rohitjavvadi/homebrew-cliply
 
+## Contributing
+
+New contributors are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the pull request workflow and local build command.
+
 ## License
 
 ClipLy is released under the MIT License. See [LICENSE](LICENSE).
